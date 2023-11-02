@@ -1,20 +1,24 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { MenuBox } from './components/MenuBox';
+import { theme } from './theme';
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    return (
+        <View style={styles.parentContainer}>
+            <StatusBar
+                backgroundColor={theme.colors.background}
+                style="inverted"
+                translucent={false}
+            />
+            <MenuBox></MenuBox>
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    parentContainer: {
+        backgroundColor: theme.colors.background,
+        flex: 1,
+    },
 });
