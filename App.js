@@ -7,8 +7,8 @@ export default function App() {
     return (
         <View style={styles.parentContainer}>
             <StatusBar
-                backgroundColor={theme.colors.background}
-                style="inverted"
+                backgroundColor={theme.colors.main}
+                style="light"
                 translucent={false}
             />
             <MenuBox></MenuBox>
