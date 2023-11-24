@@ -1,5 +1,12 @@
 import { useState } from 'react';
-import { Pressable, Text, TextInput, ToastAndroid, View } from 'react-native';
+import {
+    Pressable,
+    ScrollView,
+    Text,
+    TextInput,
+    ToastAndroid,
+    View,
+} from 'react-native';
 import DocumentPicker, {
     DocumentPickerResponse,
     isCancel,
@@ -8,6 +15,7 @@ import * as FS from 'react-native-fs';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { Hash } from '../../shared/types/Hash';
 import { theme } from '../../theme';
+import { HashListItem } from '../HashListItem';
 import { styles } from './styles';
 
 export const MenuBox = function () {
@@ -100,8 +108,8 @@ export const MenuBox = function () {
                                     algo
                                 );
                                 arrResults.push({ algo, hash });
-                                setHashValues(arrResults);
                             }
+                            setHashValues(arrResults);
                         } catch (error) {
                             console.error(
                                 "ERROR ON 'CALCULATE HASH' BUTTON OPERATION: ",
@@ -113,6 +121,11 @@ export const MenuBox = function () {
                     <Text style={styles.button_text}>Calculate Hash</Text>
                 </Pressable>
             </View>
+            <ScrollView style={{ flex: 1 }}>
+                {hashValues.map((hashResult, idx) => {
+                    return <HashListItem key={idx} hashVal={hashResult} />;
+                })}
+            </ScrollView>
         </>
     );
 };
