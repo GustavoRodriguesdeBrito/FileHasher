@@ -17,4 +17,10 @@ export const styles = StyleSheet.create({
         color: theme.colors.text_primary,
         fontSize: 24,
     },
+    noMatch: {
+        backgroundColor: theme.colors.error_faded,
+    },
+    match: {
+        backgroundColor: theme.colors.success_faded,
+    },
 });

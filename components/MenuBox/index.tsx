@@ -27,6 +27,8 @@ export const MenuBox = function () {
         Array<Hash> | undefined | null
     >([]);
 
+    const [userHash, setUserHash] = useState<string>('');
+
     const algos = ['md5', 'sha1', 'sha256', 'sha512'];
 
     const hashFile = async (file: string, algo: string) => {
@@ -89,6 +91,10 @@ export const MenuBox = function () {
                         style={styles.text_input}
                         placeholder="Insert the hash to compare here"
                         placeholderTextColor={theme.colors.text_primary_faded}
+                        onChangeText={(newUserHash) => {
+                            setUserHash(newUserHash);
+                        }}
+                        value={userHash}
                     />
                 </View>
                 <Pressable
@@ -108,7 +114,11 @@ export const MenuBox = function () {
                                     docPickResult.fileCopyUri,
                                     algo
                                 );
-                                arrResults.push({ algo, hash });
+                                let isMatch: boolean;
+                                if (userHash) {
+                                    isMatch = hash === userHash;
+                                }
+                                arrResults.push({ algo, hash, isMatch });
                             }
                             setHashValues(arrResults);
                         } catch (error) {
@@ -122,7 +132,7 @@ export const MenuBox = function () {
                     <Text style={styles.button_text}>Calculate Hash</Text>
                 </Pressable>
             </View>
-            <ScrollView style={{ flex: 1 }}>
+            <ScrollView>
                 {hashValues.map((hashResult, idx) => {
                     return <HashListItem key={idx} hashVal={hashResult} />;
                 })}

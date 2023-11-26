@@ -5,5 +5,7 @@ export const theme = {
         backgroundLight: '#444444',
         text_primary: '#FFFFFF',
         text_primary_faded: '#AAAAAA',
+        error_faded: '#A02323',
+        success_faded: '#417C3B',
     },
 };
