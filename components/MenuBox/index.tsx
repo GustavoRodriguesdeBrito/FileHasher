@@ -46,6 +46,7 @@ export const MenuBox = function () {
             });
             //store the result to use the uri later
             setDocPickResult(docPickResult[0]);
+            setHashValues([]);
         } catch (error) {
             if (isCancel(error)) {
                 console.warn('DocPick cancelled');
@@ -80,7 +81,7 @@ export const MenuBox = function () {
                             pickFile();
                         }}
                     >
-                        <Icon name="folder-open" size={10} color={'#fff'} />
+                        <Icon name="folder-open" size={15} color={'#fff'} />
                     </Pressable>
                 </View>
                 <View style={styles.inlineFlexWrapper}>
