@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@react-native-clipboard/clipboard": "^1.12.1",
+    "@react-native-community/checkbox": "^0.5.16",
     "@types/react": "~18.2.14",
     "expo": "~49.0.15",
     "expo-splash-screen": "~0.20.5",

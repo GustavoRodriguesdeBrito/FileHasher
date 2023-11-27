@@ -1,3 +1,4 @@
+import CheckBox from '@react-native-community/checkbox';
 import { useState } from 'react';
 import {
     Pressable,
@@ -27,9 +28,21 @@ export const MenuBox = function () {
         Array<Hash> | undefined | null
     >([]);
 
-    const [userHash, setUserHash] = useState<string>('');
+    const [userHash, setUserHash] = useState<string>();
+
+    const [checkBoxState, setCheckBoxState] = useState<boolean>(false);
 
     const algos = ['md5', 'sha1', 'sha256', 'sha512'];
+
+    const compareHashes = (hashes: Array<Hash>, hashToCompare: string) => {
+        for (let hash of hashes) {
+            if (hashToCompare || hashToCompare !== '') {
+                hash.isMatch = hash.hash === hashToCompare;
+            } else {
+                hash.isMatch = null;
+            }
+        }
+    };
 
     const hashFile = async (file: string, algo: string) => {
         try {
@@ -92,6 +105,7 @@ export const MenuBox = function () {
                         placeholder="Insert the hash to compare here"
                         placeholderTextColor={theme.colors.text_primary_faded}
                         onChangeText={(newUserHash) => {
+                            compareHashes(hashValues, newUserHash);
                             setUserHash(newUserHash);
                         }}
                         value={userHash}
@@ -132,11 +146,39 @@ export const MenuBox = function () {
                     <Text style={styles.button_text}>Calculate Hash</Text>
                 </Pressable>
             </View>
-            <ScrollView>
-                {hashValues.map((hashResult, idx) => {
-                    return <HashListItem key={idx} hashVal={hashResult} />;
-                })}
-            </ScrollView>
+            <View>
+                {/* prevent the checkbox from becoming invisible while checked */}
+                {(userHash || checkBoxState) && (
+                    <View style={styles.inlineFlexWrapper}>
+                        <CheckBox
+                            tintColors={{
+                                true: theme.colors.main,
+                                false: theme.colors.text_primary,
+                            }}
+                            value={checkBoxState}
+                            onValueChange={(newState) => {
+                                setCheckBoxState(newState);
+                                compareHashes(hashValues, userHash);
+                            }}
+                        />
+                        <Text style={styles.text_label}>
+                            Show only matching hashes
+                        </Text>
+                    </View>
+                )}
+
+                <ScrollView>
+                    {hashValues.map((hashResult, idx) => {
+                        const element = (
+                            <HashListItem key={idx} hashVal={hashResult} />
+                        );
+                        if (checkBoxState) {
+                            return hashResult.isMatch && element;
+                        }
+                        return element;
+                    })}
+                </ScrollView>
+            </View>
         </>
     );
 };
