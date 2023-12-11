@@ -7,20 +7,14 @@ export const styles = StyleSheet.create({
         margin: 10,
         alignContent: 'center',
     },
-    inlineFlexWrapper: {
-        flexDirection: 'row',
-    },
-    text_label: {
-        color: theme.colors.text_primary,
-    },
-    text_title: {
-        color: theme.colors.text_primary,
+    textTitle: {
+        color: theme.colors.textPrimary,
         fontSize: 24,
     },
     noMatch: {
-        backgroundColor: theme.colors.error_faded,
+        backgroundColor: theme.colors.errorFaded,
     },
     match: {
-        backgroundColor: theme.colors.success_faded,
+        backgroundColor: theme.colors.successFaded,
     },
 });

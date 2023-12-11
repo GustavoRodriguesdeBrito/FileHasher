@@ -6,25 +6,18 @@ export const styles = StyleSheet.create({
         paddingVertical: 30,
         backgroundColor: theme.colors.backgroundLight,
     },
-    inlineFlexWrapper: {
-        flexDirection: 'row',
-        margin: 5,
-    },
     button: {
         backgroundColor: theme.colors.main,
         borderRadius: 5,
         padding: 10,
         alignSelf: 'center',
     },
-    button_text: {
-        color: theme.colors.text_primary,
+    buttonText: {
+        color: theme.colors.textPrimary,
         fontSize: 12,
     },
-    text_input: {
-        color: theme.colors.text_primary,
+    textInput: {
+        color: theme.colors.textPrimary,
         flex: 1,
-    },
-    text_label: {
-        color: theme.colors.text_primary,
     },
 });

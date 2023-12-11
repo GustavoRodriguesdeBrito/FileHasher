@@ -1,22 +1,15 @@
-import CheckBox from '@react-native-community/checkbox';
 import { useState } from 'react';
-import {
-    Pressable,
-    ScrollView,
-    Text,
-    TextInput,
-    ToastAndroid,
-    View,
-} from 'react-native';
+import { Pressable, Text, TextInput, ToastAndroid, View } from 'react-native';
 import DocumentPicker, {
     DocumentPickerResponse,
     isCancel,
 } from 'react-native-document-picker';
 import * as FS from 'react-native-fs';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import { styles as globalStyles } from '../../shared/styles';
 import { Hash } from '../../shared/types/Hash';
 import { theme } from '../../theme';
-import { HashListItem } from '../HashListItem';
+import { HashList } from '../HashList';
 import { styles } from './styles';
 
 export const MenuBox = function () {
@@ -29,8 +22,6 @@ export const MenuBox = function () {
     >([]);
 
     const [userHash, setUserHash] = useState<string>();
-
-    const [checkBoxState, setCheckBoxState] = useState<boolean>(false);
 
     const algos = ['md5', 'sha1', 'sha256', 'sha512'];
 
@@ -76,34 +67,40 @@ export const MenuBox = function () {
     return (
         <>
             <View style={styles.container}>
-                <View style={styles.inlineFlexWrapper}>
+                <View
+                    style={[
+                        globalStyles.inlineFlexWrapper,
+                        globalStyles.margin5,
+                    ]}
+                >
                     <TextInput
-                        style={styles.text_input}
+                        style={styles.textInput}
                         editable={false}
                         multiline={true}
                         scrollEnabled={true}
                         value={uriValue}
                         placeholder="File Path"
-                        placeholderTextColor={theme.colors.text_primary_faded}
+                        placeholderTextColor={theme.colors.textPrimaryFaded}
                     />
                     <Pressable
                         style={styles.button}
                         onPress={() => {
-                            ToastAndroid.show(
-                                'file selector button clicked',
-                                ToastAndroid.SHORT
-                            );
                             pickFile();
                         }}
                     >
                         <Icon name="folder-open" size={15} color={'#fff'} />
                     </Pressable>
                 </View>
-                <View style={styles.inlineFlexWrapper}>
+                <View
+                    style={[
+                        globalStyles.inlineFlexWrapper,
+                        globalStyles.margin5,
+                    ]}
+                >
                     <TextInput
-                        style={styles.text_input}
+                        style={styles.textInput}
                         placeholder="Insert the hash to compare here"
-                        placeholderTextColor={theme.colors.text_primary_faded}
+                        placeholderTextColor={theme.colors.textPrimaryFaded}
                         onChangeText={(newUserHash) => {
                             compareHashes(hashValues, newUserHash);
                             setUserHash(newUserHash);
@@ -143,42 +140,14 @@ export const MenuBox = function () {
                         }
                     }}
                 >
-                    <Text style={styles.button_text}>Calculate Hash</Text>
+                    <Text style={styles.buttonText}>Calculate Hash</Text>
                 </Pressable>
             </View>
-            <View>
-                {/* prevent the checkbox from becoming invisible while checked */}
-                {(userHash || checkBoxState) && (
-                    <View style={styles.inlineFlexWrapper}>
-                        <CheckBox
-                            tintColors={{
-                                true: theme.colors.main,
-                                false: theme.colors.text_primary,
-                            }}
-                            value={checkBoxState}
-                            onValueChange={(newState) => {
-                                setCheckBoxState(newState);
-                                compareHashes(hashValues, userHash);
-                            }}
-                        />
-                        <Text style={styles.text_label}>
-                            Show only matching hashes
-                        </Text>
-                    </View>
-                )}
-
-                <ScrollView>
-                    {hashValues.map((hashResult, idx) => {
-                        const element = (
-                            <HashListItem key={idx} hashVal={hashResult} />
-                        );
-                        if (checkBoxState) {
-                            return hashResult.isMatch && element;
-                        }
-                        return element;
-                    })}
-                </ScrollView>
-            </View>
+            <HashList
+                userHash={userHash}
+                hashValues={hashValues}
+                compareHashes={compareHashes}
+            />
         </>
     );
 };

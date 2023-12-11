@@ -3,9 +3,9 @@ export const theme = {
         main: '#915D98',
         background: '#333333',
         backgroundLight: '#444444',
-        text_primary: '#FFFFFF',
-        text_primary_faded: '#AAAAAA',
-        error_faded: '#A02323',
-        success_faded: '#417C3B',
+        textPrimary: '#FFFFFF',
+        textPrimaryFaded: '#AAAAAA',
+        errorFaded: '#A02323',
+        successFaded: '#417C3B',
     },
 };

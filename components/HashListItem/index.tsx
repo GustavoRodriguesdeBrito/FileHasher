@@ -1,6 +1,7 @@
 import Clipboard from '@react-native-clipboard/clipboard';
 import { Pressable, Text, ToastAndroid, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import { styles as globalStyles } from '../../shared/styles';
 import { Hash } from '../../shared/types/Hash';
 import { theme } from '../../theme';
 import { styles } from './styles';
@@ -28,7 +29,7 @@ export const HashListItem = function ({ hashVal }: hashListItemProps) {
                 >
                     <View
                         style={[
-                            styles.inlineFlexWrapper,
+                            globalStyles.inlineFlexWrapper,
                             {
                                 justifyContent: 'space-between',
                             },
@@ -36,8 +37,8 @@ export const HashListItem = function ({ hashVal }: hashListItemProps) {
                     >
                         <Text
                             style={[
-                                styles.text_title,
-                                styles.inlineFlexWrapper,
+                                styles.textTitle,
+                                globalStyles.inlineFlexWrapper,
                             ]}
                         >
                             {hashVal.algo}
@@ -60,7 +61,12 @@ export const HashListItem = function ({ hashVal }: hashListItemProps) {
                             <Icon name="copy" size={20} color={'#fff'} />
                         </Pressable>
                     </View>
-                    <Text style={[styles.text_label, styles.inlineFlexWrapper]}>
+                    <Text
+                        style={[
+                            globalStyles.inlineFlexWrapper,
+                            globalStyles.textLabel,
+                        ]}
+                    >
                         {hashVal.hash}
                     </Text>
                 </View>
